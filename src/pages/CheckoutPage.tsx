@@ -16,6 +16,7 @@ export const CheckoutPage: React.FC = () => {
     email: '',
     tableNumber: '',
     holeNumber: '',
+    courseName: '',
     additionalNotes: ''
   });
   
@@ -174,22 +175,38 @@ export const CheckoutPage: React.FC = () => {
               )}
               
               {orderType === 'golf-course' && (
-                <div>
-                  <label htmlFor="holeNumber" className="block text-sm font-medium text-gray-700 mb-1">
-                    Hole Number*
-                  </label>
-                  <input
-                    type="text"
-                    id="holeNumber"
-                    name="holeNumber"
-                    value={formData.holeNumber}
-                    onChange={handleChange}
-                    className={`w-full p-3 border rounded-md focus:outline-none focus:ring-1 focus:ring-green-500 ${
-                      errors.holeNumber ? 'border-red-500' : 'border-gray-300'
-                    }`}
-                  />
-                  {errors.holeNumber && <p className="text-red-500 text-sm mt-1">{errors.holeNumber}</p>}
-                </div>
+                <>
+                  <div>
+                    <label htmlFor="courseName" className="block text-sm font-medium text-gray-700 mb-1">
+                      Course Name (optional)
+                    </label>
+                    <input
+                      type="text"
+                      id="courseName"
+                      name="courseName"
+                      value={formData.courseName}
+                      onChange={handleChange}
+                      placeholder="e.g., East Course"
+                      className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-green-500"
+                    />
+                  </div>
+                  <div>
+                    <label htmlFor="holeNumber" className="block text-sm font-medium text-gray-700 mb-1">
+                      Hole Number*
+                    </label>
+                    <input
+                      type="text"
+                      id="holeNumber"
+                      name="holeNumber"
+                      value={formData.holeNumber}
+                      onChange={handleChange}
+                      className={`w-full p-3 border rounded-md focus:outline-none focus:ring-1 focus:ring-green-500 ${
+                        errors.holeNumber ? 'border-red-500' : 'border-gray-300'
+                      }`}
+                    />
+                    {errors.holeNumber && <p className="text-red-500 text-sm mt-1">{errors.holeNumber}</p>}
+                  </div>
+                </>
               )}
               
               <div>
