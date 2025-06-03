@@ -1,10 +1,23 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { UtensilsCrossed, Beer, ShoppingCart } from 'lucide-react';
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { UtensilsCrossed, Beer, ShoppingCart, QrCode } from 'lucide-react';
 import { specials } from '../data/menuData';
 import { SpecialsCarousel } from '../components/SpecialsCarousel';
+import { QRScanner } from '../components/QRScanner';
 
 export const HomePage: React.FC = () => {
+  const [showScanner, setShowScanner] = useState(false);
+  const navigate = useNavigate();
+
+  const handleScan = (restaurantId: string) => {
+    // In a real app, this would fetch the restaurant's menu data
+    console.log('Restaurant ID:', restaurantId);
+    setShowScanner(false);
+    navigate('/menu/restaurant');
+  };
+
+  const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
@@ -24,6 +37,15 @@ export const HomePage: React.FC = () => {
               Exceptional dining experience with stunning views of the golf course
             </p>
             <div className="flex flex-col sm:flex-row justify-center gap-4">
+              {isMobile && (
+                <button
+                  onClick={() => setShowScanner(true)}
+                  className="bg-white text-green-600 py-3 px-6 rounded-md hover:bg-gray-100 transition-colors duration-300 flex items-center justify-center space-x-2"
+                >
+                  <QrCode size={20} />
+                  <span>Scan Restaurant Code</span>
+                </button>
+              )}
               <Link
                 to="/menu/restaurant"
                 className="bg-green-600 text-white py-3 px-6 rounded-md hover:bg-green-700 transition-colors duration-300 flex items-center justify-center space-x-2"
@@ -59,6 +81,14 @@ export const HomePage: React.FC = () => {
           </svg>
         </div>
       </section>
+      
+      {/* QR Scanner Modal */}
+      {showScanner && (
+        <QRScanner
+          onScan={handleScan}
+          onClose={() => setShowScanner(false)}
+        />
+      )}
       
       {/* Specials Section */}
       <section className="py-16 bg-gray-50">
