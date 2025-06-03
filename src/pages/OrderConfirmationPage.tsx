@@ -1,31 +1,32 @@
 import React, { useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { CheckCircle, Clock, ChevronRight } from 'lucide-react';
 import { restaurantInfo } from '../data/menuData';
 import { useCart } from '../context/CartContext';
+import { useOrder } from '../context/OrderContext';
 
 export const OrderConfirmationPage: React.FC = () => {
   const { orderType } = useCart();
+  const { getOrder } = useOrder();
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const orderId = searchParams.get('orderId');
   
-  // Generate a random order number
-  const orderNumber = `FC-${Math.floor(100000 + Math.random() * 900000)}`;
+  const order = orderId ? getOrder(orderId) : null;
   
   // Estimated time based on order type
   const estimatedTime = restaurantInfo.estimatedPrepTime[orderType];
   
-  // Navigate away if user refreshes (in a real app, this would be handled differently)
+  // Navigate away if no order found
   useEffect(() => {
-    const handleBeforeUnload = () => {
+    if (!order) {
       navigate('/');
-    };
-    
-    window.addEventListener('beforeunload', handleBeforeUnload);
-    
-    return () => {
-      window.removeEventListener('beforeunload', handleBeforeUnload);
-    };
-  }, [navigate]);
+    }
+  }, [order, navigate]);
+
+  if (!order) {
+    return null;
+  }
 
   return (
     <div className="min-h-screen pt-20 pb-16 bg-gray-50">
@@ -43,7 +44,7 @@ export const OrderConfirmationPage: React.FC = () => {
           <div className="bg-gray-50 rounded-lg p-6 mb-6">
             <div className="text-left mb-4">
               <div className="text-sm text-gray-500">Order Number</div>
-              <div className="text-xl font-bold">{orderNumber}</div>
+              <div className="text-xl font-bold">{order.id}</div>
             </div>
             
             <div className="flex items-start space-x-3 text-left">
@@ -52,9 +53,9 @@ export const OrderConfirmationPage: React.FC = () => {
                 <div className="font-medium">Estimated Time</div>
                 <div className="text-gray-600">{estimatedTime}</div>
                 <div className="text-sm text-gray-500 mt-1">
-                  {orderType === 'dine-in' && "We'll bring your order to your table."}
-                  {orderType === 'takeaway' && 'Your order will be ready for pickup at the restaurant.'}
-                  {orderType === 'golf-course' && "We'll deliver your order to you on the course."}
+                  {order.orderType === 'dine-in' && "We'll bring your order to your table."}
+                  {order.orderType === 'takeaway' && 'Your order will be ready for pickup at the restaurant.'}
+                  {order.orderType === 'golf-course' && "We'll deliver your order to you on the course."}
                 </div>
               </div>
             </div>

@@ -2,10 +2,12 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { ChevronLeft } from 'lucide-react';
 import { useCart } from '../context/CartContext';
+import { useOrder } from '../context/OrderContext';
 import { OrderTypePicker } from '../components/OrderTypePicker';
 
 export const CheckoutPage: React.FC = () => {
   const { cartItems, orderType, getCartTotal, clearCart } = useCart();
+  const { createOrder } = useOrder();
   const navigate = useNavigate();
   
   const [formData, setFormData] = useState({
@@ -26,7 +28,6 @@ export const CheckoutPage: React.FC = () => {
       [name]: value
     }));
     
-    // Clear error when user types
     if (errors[name]) {
       setErrors(prev => {
         const newErrors = { ...prev };
@@ -65,18 +66,19 @@ export const CheckoutPage: React.FC = () => {
     if (!validateForm()) {
       return;
     }
+
+    // Create the order
+    const orderItems = cartItems.map(item => ({
+      name: item.name,
+      quantity: item.quantity,
+      price: item.price
+    }));
+
+    const orderId = createOrder(orderItems, orderType, getCartTotal() * 1.08);
     
-    // In a real app, you would send the order to a backend
-    console.log('Order submitted:', { 
-      items: cartItems,
-      orderType, 
-      customer: formData,
-      total: getCartTotal() * 1.08
-    });
-    
-    // Clear the cart and navigate to confirmation page
+    // Clear the cart and navigate to confirmation page with order ID
     clearCart();
-    navigate('/confirmation');
+    navigate(`/confirmation?orderId=${orderId}`);
   };
   
   // Guard against empty cart
