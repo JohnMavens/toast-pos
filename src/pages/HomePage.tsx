@@ -31,7 +31,7 @@ export const HomePage: React.FC = () => {
         <div className="relative h-full flex items-center justify-center text-center px-4">
           <div className="max-w-3xl">
             <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
-              Welcome to Fairway Club
+              Welcome to Tee Tours Club
             </h1>
             <p className="text-xl text-white mb-8">
               Exceptional dining experience with stunning views of the golf course
@@ -101,7 +101,7 @@ export const HomePage: React.FC = () => {
       <section className="py-16">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold mb-4">Dining at Fairway Club</h2>
+            <h2 className="text-3xl font-bold mb-4">Dining at Tee Tours Club</h2>
             <p className="text-gray-600 max-w-2xl mx-auto">
               Enjoy our delicious food and drinks at the clubhouse or have them delivered to you on the golf course.
             </p>

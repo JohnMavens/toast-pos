@@ -9,7 +9,7 @@ export const Footer: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {/* Restaurant Info */}
           <div>
-            <h3 className="text-lg font-semibold mb-4">Fairway Club</h3>
+            <h3 className="text-lg font-semibold mb-4">Tee Tours Club</h3>
             <div className="flex items-start space-x-2 mb-3">
               <MapPin size={18} className="mt-1 flex-shrink-0" />
               <p>123 Fairway Drive, Golfville, GF 12345</p>
@@ -47,7 +47,7 @@ export const Footer: React.FC = () => {
           <div>
             <h3 className="text-lg font-semibold mb-4">Quick Order</h3>
             <p className="mb-3">Scan the QR code at your table or around the course to place your order directly from your phone.</p>
-            <p className="text-sm text-gray-400">© {new Date().getFullYear()} Fairway Club. All rights reserved.</p>
+            <p className="text-sm text-gray-400">© {new Date().getFullYear()} Tee Tours Club. All rights reserved.</p>
           </div>
         </div>
       </div>

@@ -53,10 +53,10 @@ export const Header: React.FC = () => {
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-2">
             <div className="w-10 h-10 bg-green-600 rounded-full flex items-center justify-center">
-              <span className="text-white font-bold">FC</span>
+              <span className="text-white font-bold">TC</span>
             </div>
             <span className={`text-xl font-bold ${isScrolled || !isHomePage ? 'text-gray-800' : 'text-white'}`}>
-              Fairway Club
+              Tee Tours Club
             </span>
           </Link>
           

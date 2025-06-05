@@ -164,7 +164,7 @@ export const specials: Special[] = [
 ];
 
 export const restaurantInfo = {
-  name: "Fairway Restaurant & Bar",
+  name: "Tee Tours Club",
   openingHours: {
     restaurant: {
       weekdays: "11:00 AM - 9:00 PM",
